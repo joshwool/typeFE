@@ -1,11 +1,12 @@
-import * as wordfreq from '../../../static/json/wordfreq.json';
+// @ts-ignore
+import words from '../../../static/json/wordfreq.json';
 import * as input from '../input/input';
 import * as display from './display';
 //hello from Anton
 export let wordList: Array<string> = [];
 
 function genWord() {
-    wordList.push(wordfreq.wordfreq[Math.floor(Math.random()*1000)]);
+    wordList.push(words.wordfreq[Math.floor(Math.random()*1000)]);
     let word = $("<div class='word'></div>");
     for (let x = 0; x < wordList[wordList.length-1].length; x++) {
         let char = $("<span class='char'>"+wordList[wordList.length-1].charAt(x)+"</span>");

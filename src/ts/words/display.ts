@@ -129,7 +129,7 @@ export function wordBack(): void {
     $(".word").eq(input.wordInd-1).addClass("wordCur");
 }
 
-export function charForward(key): void {
+export function charForward(key: string): void {
     let inpLength = (<any>$("#wordInp").val()).length;
     if (inpLength+1 > gen.wordList[input.wordInd].length) {
         $(".wordCur").append("<span class='char incorrect'>"+key+"</span>");
@@ -160,13 +160,13 @@ export function ctrlBack(): void {
         word.children().eq(i).removeClass("correct incorrect incomplete"); // Removes all classes from all characters in the word
     }
 }
-export function spaceCheck(inpVal): void {
+export function spaceCheck(inpVal: string): void {
     for (let i = inpVal.length; i < gen.wordList[input.wordInd].length; i++) { // Loops through any characters that have not been completed
         $(".wordCur").children().eq(i).addClass("incomplete"); // Sets any characters that have not been typed to incomplete
     }
 }
 
-export function backCheck(inpVal): void {
+export function backCheck(inpVal: string): void {
     for (let i = inpVal.length; i < gen.wordList[input.wordInd].length; i++) { // Loops through any characters that have not been completed
         $(".wordCur").children().eq(i).removeClass("incomplete"); // Removes incomplete class from any incomplete characters
     }

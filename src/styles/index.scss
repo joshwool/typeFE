@@ -11,14 +11,34 @@ body {
     color: #245F48;
 }
 
-#toolbar {
+.toolbar {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 70%;
+    width: 100%;
     padding: 0.8rem 1rem;
     border-radius: 0.5rem;
+
+}
+
+#right {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.8rem 1rem;
+}
+
+.option {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border-color: #245F48;
+    border-style: solid;
+    margin: 0 0.2rem;
     background-color: #48bf91;
+}
+
+#disbar {
+    width: 70%;
 }
 
 .tool {
@@ -27,9 +47,8 @@ body {
     background-color: #48bf91;
 }
 
-#basStats {
+.basStat {
     color: white;
-    padding: 1.6rem 0 0rem 0rem;
 }
 
 .twMainOp:hover, .timeMinOp:hover, .wordsMinOp:hover, #settings:hover {

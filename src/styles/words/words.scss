@@ -57,3 +57,7 @@ input {
   padding: 0;
   border: none;
 }
+
+input:focus {
+  outline: none;
+}
