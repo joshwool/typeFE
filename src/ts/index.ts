@@ -5,23 +5,22 @@ import * as display from "./words/display"
 import "../styles/index.scss"
 
 $(() => {
-    $("#wordInp").val('');
+  $("#wordInp").val("");
 
-    if ($("#wordDis").outerWidth() + screen.width*0.1 > window.innerWidth) {
-        $("#wordDis").width(window.innerWidth*0.9)
-    }
-    else {
-        $("#wordDis").width(screen.width*0.7);
-    }
+  if ($("#wordDis").outerWidth() + screen.width * 0.1 > window.innerWidth) {
+    $("#wordDis").width(window.innerWidth * 0.9);
+  } else {
+    $("#wordDis").width(screen.width * 0.7);
+  }
 
-    gen.genLines(4);
+  gen.genLines(4);
 
-    display.wordsFocus();
+  display.wordsFocus();
 
-    display.resize();
-    display.resizeLines();
+  display.resize();
+  display.resizeLines();
 
-    input.KeyDown();
+  input.KeyDown();
 });
 
 
