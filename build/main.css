@@ -51,7 +51,7 @@ body {
   align-items: center;
   font-family: "Roboto Mono";
   background-color: #0e261d;
-  color: #245F48;
+  color: #245f48;
 }
 
 #toolbar {
@@ -72,7 +72,10 @@ body {
   padding: 1.6rem 0 0rem 0rem;
 }
 
-.twMainOp:hover, .timeMinOp:hover, .wordsMinOp:hover, #settings:hover {
+.twMainOp:hover,
+.timeMinOp:hover,
+.wordsMinOp:hover,
+#setop:hover {
   cursor: pointer;
   color: white;
 }

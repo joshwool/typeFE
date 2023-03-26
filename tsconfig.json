@@ -9,5 +9,7 @@
     "esModuleInterop": true,
     "moduleResolution": "node"
   },
-  "files": ["src/ts/index.ts"]
+  "files": [
+    "src/ts/pages/index.ts"
+  ]
 }

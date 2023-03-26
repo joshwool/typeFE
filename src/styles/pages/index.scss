@@ -1,0 +1,42 @@
+@import "src/styles/main";
+
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#right {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.option {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border-color: #245f48;
+  border-style: solid;
+  margin: 1rem;
+  background-color: #48bf91;
+}
+
+.stats {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stat {
+  color: white;
+  margin: 0 0.2rem;
+}
+
+.option:hover {
+  cursor: pointer;
+  color: white;
+}
+
+@import "../words/words", "../caret/caret", "../settings/settings";

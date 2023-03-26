@@ -10,31 +10,44 @@ const isProduction = process.env.NODE_ENV === "production";
 
 const stylesHandler = MiniCssExtractPlugin.loader;
 
+const pages = ["index", "login"];
+
 const config = {
-  entry: "./src/ts/index.ts",
+  entry: pages.reduce((config, page) => {
+    config[page] = `./src/ts/pages/${page}.ts`;
+    return config;
+  }, {}),
   output: {
+    filename: "[name].js",
     path: path.resolve(__dirname, "dist"),
+  },
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+    },
   },
   devServer: {
     open: true,
     host: "localhost",
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      filename: "index.html",
-      template: "./static/index.html",
-    }),
-
     new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
+      $: "jquery",
+      jQuery: "jquery",
     }),
 
     new MiniCssExtractPlugin(),
-
-    // Add your plugins here
-    // Learn more about plugins from https://webpack.js.org/configuration/plugins/
-  ],
+  ].concat(
+    pages.map(
+      (page) =>
+        new HtmlWebpackPlugin({
+          inject: true,
+          template: `./static/pages/${page}.html`,
+          filename: `${page}.html`,
+          chunks: [page],
+        })
+    )
+  ),
   module: {
     rules: [
       {
@@ -54,7 +67,6 @@ const config = {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
         type: "asset",
       },
-
 
       // Add your rules for custom modules here
       // Learn more about loaders from https://webpack.js.org/loaders/
