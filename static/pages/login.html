@@ -5,10 +5,42 @@
     <title>Typing</title>
   </head>
   <body>
-    <div id="main">
-      <div id="register"></div>
-      <div id="login"></div>
+    <div id="nav" class="toolbar">
+      <div id="left"></div>
+      <div id="right">
+        <div class="option" id="mode">
+          <a class="pagelink" href="index.html">Test</a>
+        </div>
+      </div>
     </div>
-    <div id="footer"></div>
+    <div id="main">
+      <div id="register" class="form">
+        <div class="name">Register</div>
+        <form id="regForm" class="formInput">
+          <label for="regUname" class="label">Username</label>
+          <input id="regUname" class="regInput">
+          <label for="regEmail" class="label">Email</label>
+          <input id="regEmail" class="regInput">
+          <label for="regConfEmail" class="label">Confirm Email</label>
+          <input id="regConfEmail" class="regInput">
+          <label for="regPword" class="label">Password</label>
+          <input id="regPword" class="regInput">
+          <label for="regConfPword" class="label">Confirm Password</label>
+          <input id="regConfPword" class="regInput">
+          <input type="submit" id="regSubmit" class="formSubmit" value="Submit">
+        </form>
+      </div>
+      <div id="login" class="form">
+        <div class="name">Login</div>
+        <form id="logForm" class="formInput">
+          <label for="logUname" class="label">Username</label>
+          <input id="logUname" class="logInput">
+          <label for="logPword" class="label">Password</label>
+          <input id="logPword" class="logInput">
+          <input type="submit" id="logSubmit" class="formSubmit" value="Submit">
+        </form>
+      </div>
+    </div>
+    <div id="footer">Made by Josh Woolaghan</div>
   </body>
 </html>

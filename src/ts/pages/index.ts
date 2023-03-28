@@ -24,16 +24,4 @@ $(() => {
   input.KeyDown();
 
   settings.Settings();
-
-  const testSocket = new WebSocket("ws://localhost:80");
-
-  testSocket.addEventListener("open", (event) => {
-    console.log("Connection created");
-    testSocket.send("Test123");
-    testSocket.send("Hello 123");
-  });
-
-  testSocket.onmessage = (event) => {
-    console.log(event.data);
-  };
 });

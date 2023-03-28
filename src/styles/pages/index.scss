@@ -1,25 +1,9 @@
 @import "src/styles/main";
 
-.toolbar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-}
-
 #right {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
-
-.option {
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  border-color: #245f48;
-  border-style: solid;
-  margin: 1rem;
-  background-color: #48bf91;
 }
 
 .stats {

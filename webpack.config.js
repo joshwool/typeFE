@@ -10,7 +10,7 @@ const isProduction = process.env.NODE_ENV === "production";
 
 const stylesHandler = MiniCssExtractPlugin.loader;
 
-const pages = ["index", "login"];
+const pages = ["index", "login", "login"];
 
 const config = {
   entry: pages.reduce((config, page) => {

@@ -4,5 +4,53 @@
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  align-items: center;
   width: 100%;
+}
+
+.form {
+  width: 20%;
+  background-color: #389b75;
+  border-radius: 0.5rem;
+  border-style: solid;
+  border-color: #245f48;
+}
+
+.name {
+  font-weight: bold;
+  margin: 0.5rem 1rem;
+  font-size: 1.2rem;
+}
+
+.formInput {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin: 0.2rem 1rem;
+}
+
+.logInput,
+.regInput {
+  font-family: "Roboto Mono";
+  font-size: 1.2rem;
+  color: #0e261d;
+  outline: none;
+  border-radius: 0.25rem;
+  border: none;
+  margin: 0.2rem 0.5rem;
+  padding: 0.5rem;
+  background-color: #48bf91;
+}
+
+.formSubmit {
+  font-family: "Roboto Mono";
+  font-size: 1.2rem;
+  color: #245f48;
+  border-radius: 0.5rem;
+  margin: 0.5rem;
+  background-color: #48bf91;
+  outline: none;
+  border: none;
 }
