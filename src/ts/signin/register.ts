@@ -14,7 +14,7 @@ export function Register() {
     let confPword = <string>$("#regConfPword").val();
 
     //Checks if there are any missing fields
-    $(".regInput").each(function () {
+    $(".regInput").each(() => {
       if ($(this).val() === undefined) {
         alert("Missing fields");
         return false;
@@ -33,7 +33,7 @@ export function Register() {
       valid = false;
     }
 
-    let unameRegex = /^?=[a-zA-Z0-9]{3,20}$/;
+    let unameRegex = /^[A-Za-z0-9]{3,20}$/;
 
     if (!uname.match(unameRegex)) {
       alert(
@@ -66,7 +66,7 @@ export function Register() {
         ws.websocket.send(
           // Sends json string with all necessary info to server
           JSON.stringify({
-            operation: "register",
+            operation: 1, // Register operation
             username: uname,
             email: email,
             password: pword,

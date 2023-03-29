@@ -8,13 +8,13 @@ import "../../styles/pages/index.scss";
 $(() => {
   $("#wordInp").val("");
 
-  if ($("#wordDis").outerWidth() + screen.width * 0.1 > window.innerWidth) {
-    $("#wordDis").width(window.innerWidth * 0.9);
-  } else {
-    $("#wordDis").width(screen.width * 0.7);
-  }
+  let wordDis = $("#wordDis");
 
-  gen.genLines(4);
+  if (wordDis.outerWidth() + screen.width * 0.1 > window.innerWidth) {
+    wordDis.width(window.innerWidth * 0.9);
+  } else {
+    wordDis.width(screen.width * 0.7);
+  }
 
   display.wordsFocus();
 

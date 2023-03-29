@@ -3,14 +3,16 @@ import * as gen from "./generate";
 import * as caret from "../caret/display";
 
 export function wordsFocus(): void {
+  let wordInp = $("#wordInp");
+
   $("#wordDis").on("click", () => {
     // Sets up an event listener to wait for a click on the word display
     $("#wordInp").trigger("focus"); // Focuses on the hidden input box once the display box has been clicked
   });
-  $("#wordInp").on("focusin", () => {
+  wordInp.on("focusin", () => {
     $("#caret").show(); // Shows caret when the input is being focused
   });
-  $("#wordInp").on("focusout", () => {
+  wordInp.on("focusout", () => {
     $("#caret").hide(); // Hides caret when the input is not focused
   });
 }
