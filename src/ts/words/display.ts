@@ -1,6 +1,7 @@
 import * as input from "../input/input";
 import * as gen from "./generate";
 import * as caret from "../caret/display";
+import * as config from "../config/config";
 
 export function wordsFocus(): void {
   let wordInp = $("#wordInp");
@@ -149,11 +150,26 @@ export function wordBack(): void {
 export function charForward(key: string): void {
   let inpLength = (<any>$("#wordInp").val()).length;
   if (inpLength + 1 > gen.wordList[input.wordInd].length) {
-    $(".wordCur").append("<span class='char incorrect'>" + key + "</span>");
-    resizeLines();
+    config.testData.keys[key][1]++; // Increments key presses
+    config.testData.keys[key][2]++; // Increments key errors
+    config.testData.totalPresses++; // Increments total key presses
+    config.testData.errors++; // Increments total errors
+    $(".wordCur").append("<span class='char overflow'>" + key + "</span>"); // Adds a new char element with the overflow key
+    resizeLines(); // Resizes lines as line width will be greater with overflow char
   } else if (key === gen.wordList[input.wordInd].charAt(inpLength)) {
+    // Checks if key pressed is correct
     $(".wordCur").children().eq(inpLength).addClass("correct");
+
+    if (!(input.wordInd == 0 && inpLength == 0)) {
+      // Checks if it is the first key being pressed, as it is a freebie shouldn't count
+      config.testData.keys[key][1] += 1; // Increments key presses
+      config.testData.totalPresses++;
+    }
   } else {
+    config.testData.keys[key][1]++; // Increments key presses
+    config.testData.keys[key][2]++; // Increments key errors
+    config.testData.totalPresses++; // Increments total key presses
+    config.testData.errors++; // Increments total errors
     $(".wordCur").children().eq(inpLength).addClass("incorrect");
   }
 }
@@ -189,4 +205,10 @@ export function backCheck(inpVal: string): void {
     // Loops through any characters that have not been completed
     $(".wordCur").children().eq(i).removeClass("incomplete"); // Removes incomplete class from any incomplete characters
   }
+}
+
+export function ResetButton() {
+  $("#reset").on("click", () => {
+    input.Reset();
+  });
 }

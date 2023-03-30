@@ -14,7 +14,7 @@ export function Register() {
     let confPword = <string>$("#regConfPword").val();
 
     //Checks if there are any missing fields
-    $(".regInput").each(() => {
+    $(".regInput").each(function () {
       if ($(this).val() === undefined) {
         alert("Missing fields");
         return false;

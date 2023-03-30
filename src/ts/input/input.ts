@@ -1,14 +1,18 @@
 import * as worddis from "../words/display";
 import * as gen from "../words/generate";
+import * as setup from "../typing/setup";
+import * as config from "../config/config";
 
 export let wordInd: number = 0;
 let inpHistory: Array<any> = [];
 
+let time = 0;
+let lastTime: number = null;
+
 export function KeyDown(): void {
   $("#wordInp").on("keydown", (event) => {
-    console.log(wordInd);
+    let currentTime = Date.now();
     let inpVal = <any>$("#wordInp").val();
-    console.log(inpVal);
     if (event.which === 8) {
       // Checks if the key pressed is a backspace
       if (inpVal === "") {
@@ -20,6 +24,7 @@ export function KeyDown(): void {
             // Although meta key is supposed to clears full line it has been changed to same function as ctrl key
             worddis.ctrlBack(); // Calls ctrlBack function to deal with ctrl/meta key press
             worddis.wordBack(); // Moves current word back by 1
+            wordInd--;
             $("#wordInp").val(""); // Empties current input
             event.preventDefault(); // Prevents backspace event from going through as it has already been dealt with
           } else {
@@ -36,10 +41,6 @@ export function KeyDown(): void {
         if (event.metaKey === true || event.ctrlKey === true) {
           // Although meta key is supposed to clears full line it has been changed to same function as ctrl key
           worddis.ctrlBack(); // Calls ctrlBack function to deal with ctrl/meta key press
-          if (wordInd > 1) {
-            worddis.wordBack(); // Moves current word back by 1
-            wordInd--;
-          }
           $("#wordInp").val(""); // Empties current input
           inpHistory.pop(); // Removes last word in input history
           event.preventDefault(); // Prevents backspace event from going through as it has already been dealt with
@@ -74,8 +75,39 @@ export function KeyDown(): void {
         }
       }
     } else if (event.which >= 65 && event.which <= 90) {
+      if (lastTime !== null) {
+        let timeDiff = currentTime - lastTime;
+      }
+      if (wordInd === 0 && inpVal === "" && config.typeConfig.type === "time") {
+        time = config.typeConfig.number;
+        $("#count").text(time);
+        const timeInterval = setInterval(function () {
+          time--;
+          let wpm =
+            ((config.testData.totalPresses - config.testData.errors) /
+              5 /
+              (config.typeConfig.number - time)) *
+            60;
+          let accuracy =
+            ((config.testData.totalPresses - config.testData.errors) /
+              config.testData.totalPresses) *
+            100;
+          $("#WPM").text(Math.round(wpm));
+          $("#ACC").text(Math.round(accuracy));
+          $("#count").text(time);
+          if (time <= 0) {
+            clearInterval(timeInterval);
+          }
+        }, 1000);
+      }
       // Character Check
       worddis.charForward(event.key); // Calls charForward function to deal with key press
     }
+    lastTime = currentTime;
   });
+}
+
+export function Reset() {
+  time = 0;
+  setup.GenTest();
 }

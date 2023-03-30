@@ -2,12 +2,13 @@
 import words from "../../../static/json/words_1k.json";
 import * as input from "../input/input";
 import * as display from "./display";
+
 export let wordList: Array<string> = [];
 
 function genWord() {
-  wordList.push(words.words[Math.floor(Math.random() * 1000)]);
+  wordList.push(words.words[Math.floor(Math.random() * words.words.length)]);
   let word = $("<div class='word'></div>");
-  for (let x = 0; x < wordList.at(-1).length; x++) {
+  for (let x = 0; x < wordList[wordList.length - 1].length; x++) {
     let char = $(
       "<span class='char'>" +
         wordList[wordList.length - 1].charAt(x) +
@@ -55,7 +56,7 @@ export function genPractice(words: Array<string>) {
     while (!lineDone) {
       let word = $("<div class='word'></div>");
       wordList.push(words[count]);
-      for (let i = 0; i < wordList.at(-1).length; i++) {
+      for (let i = 0; i < wordList[wordList.length - 1].length; i++) {
         let char = $(
           "<span class='char'>" +
             wordList[wordList.length - 1].charAt(i) +
@@ -77,4 +78,5 @@ export function genPractice(words: Array<string>) {
       }
     }
   }
+  display.updateLines();
 }

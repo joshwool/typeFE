@@ -1,11 +1,15 @@
 import "jquery";
-import * as gen from "../words/generate";
 import * as input from "../input/input";
 import * as display from "../words/display";
 import * as settings from "../settings/settings";
 import "../../styles/pages/index.scss";
+import * as onload from "../onload/onload";
+import * as response from "../typing/response";
 
 $(() => {
+  onload.IndexOnload();
+  response.Response();
+
   $("#wordInp").val("");
 
   let wordDis = $("#wordDis");
@@ -17,9 +21,9 @@ $(() => {
   }
 
   display.wordsFocus();
-
   display.resize();
   display.resizeLines();
+  display.ResetButton();
 
   input.KeyDown();
 

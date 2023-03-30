@@ -6,21 +6,47 @@
   justify-content: space-between;
 }
 
+#main {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#reset {
+  text-decoration: none;
+}
+
+#reset:focus {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border-color: #245f48;
+  border-style: solid;
+  margin: 1rem;
+  background-color: #48bf91;
+  outline: none;
+  color: white;
+}
+
 .stats {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin: 1rem;
 }
 
 .stat {
+  font-size: 1.2rem;
   color: white;
   margin: 0 0.2rem;
+  width: 3rem;
 }
 
-.option:hover {
-  cursor: pointer;
-  color: white;
+#count {
+  text-align: center;
+  color: #48bf91;
+  font-size: 2rem;
+  height: 1rem;
 }
 
 @import "../words/words", "../caret/caret", "../settings/settings";

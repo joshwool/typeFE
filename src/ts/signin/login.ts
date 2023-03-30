@@ -9,7 +9,7 @@ export function Login() {
     let uname = <string>$("#logUname").val();
     let pword = <string>$("#logPword").val();
 
-    $(".logInput").each(() => {
+    $(".logInput").each(function () {
       if ($(this).val() === undefined) {
         alert("Missing fields");
         return false;
@@ -37,7 +37,6 @@ export function Login() {
     if (valid) {
       // If there is anything wrong with inputs then nothing will be sent to the server
       if (ws.websocket.readyState === 1) {
-        console.log("test");
         // Checks if websocket connection is open.
         ws.websocket.send(
           // Sends json string with all necessary info to server

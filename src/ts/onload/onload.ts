@@ -2,20 +2,27 @@ import * as ws from "../websocket/websocket";
 
 export function IndexOnload() {
   if (localStorage.getItem("sessionId") !== null) {
-    ws.websocket.send(
-      JSON.stringify({
-        operation: 3, // Config load
-        sessionId: localStorage.getItem("sessionId"),
-        config: "test_config",
-      })
-    );
-  } else {
+    ws.websocket.onopen = () => {
+      ws.websocket.send(
+        JSON.stringify({
+          operation: 3, // Config load
+          sessionId: localStorage.getItem("sessionId"),
+          config: "test_config",
+        })
+      );
+    };
+  }
+}
+
+export function SigninOnload() {
+  if (localStorage.getItem("sessionId") !== null) {
+    window.location.replace("account.html"); // Redirects to account page if there is a session ID
   }
 }
 
 export function AccountOnload() {
   if (localStorage.getItem("sessionId") !== null) {
   } else {
-    window.location.replace("./login.html"); // Redirects to login page if not logged in
+    window.location.replace("signin.html"); // Redirects to login page if there is no sessionId
   }
 }
