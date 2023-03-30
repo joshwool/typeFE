@@ -36,7 +36,7 @@
 }
 
 .stat {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   color: white;
   margin: 0 0.2rem;
   width: 3rem;
@@ -49,4 +49,35 @@
   height: 1rem;
 }
 
-@import "../words/words", "../caret/caret", "../settings/settings";
+#settings {
+  height: fit-content;
+  width: 20%;
+  left: 40%;
+}
+
+.setting {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 1.25rem;
+}
+
+.setname {
+  color: #48bf91;
+}
+
+.setradio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.setinp {
+  height: 100%;
+  width: 100%;
+  margin: 0.5rem;
+  background-color: #0e261d;
+}
+
+@import "../words/words", "../caret/caret";

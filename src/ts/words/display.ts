@@ -147,13 +147,13 @@ export function wordBack(): void {
     .addClass("wordCur");
 }
 
-export function charForward(key: string): void {
+export function charForward(key: string, keyCode: number): void {
   let inpLength = (<any>$("#wordInp").val()).length;
   if (inpLength + 1 > gen.wordList[input.wordInd].length) {
-    config.testData.keys[key][1]++; // Increments key presses
-    config.testData.keys[key][2]++; // Increments key errors
-    config.testData.totalPresses++; // Increments total key presses
-    config.testData.errors++; // Increments total errors
+    config.typeData.keys[keyCode][1]++; // Increments key presses
+    config.typeData.keys[keyCode][2]++; // Increments key errors
+    config.typeData.totalPresses++; // Increments total key presses
+    config.typeData.errors++; // Increments total errors
     $(".wordCur").append("<span class='char overflow'>" + key + "</span>"); // Adds a new char element with the overflow key
     resizeLines(); // Resizes lines as line width will be greater with overflow char
   } else if (key === gen.wordList[input.wordInd].charAt(inpLength)) {
@@ -162,14 +162,14 @@ export function charForward(key: string): void {
 
     if (!(input.wordInd == 0 && inpLength == 0)) {
       // Checks if it is the first key being pressed, as it is a freebie shouldn't count
-      config.testData.keys[key][1] += 1; // Increments key presses
-      config.testData.totalPresses++;
+      config.typeData.keys[keyCode][1] += 1; // Increments key presses
+      config.typeData.totalPresses++;
     }
   } else {
-    config.testData.keys[key][1]++; // Increments key presses
-    config.testData.keys[key][2]++; // Increments key errors
-    config.testData.totalPresses++; // Increments total key presses
-    config.testData.errors++; // Increments total errors
+    config.typeData.keys[keyCode][1]++; // Increments key presses
+    config.typeData.keys[keyCode][2]++; // Increments key errors
+    config.typeData.totalPresses++; // Increments total key presses
+    config.typeData.errors++; // Increments total errors
     $(".wordCur").children().eq(inpLength).addClass("incorrect");
   }
 }

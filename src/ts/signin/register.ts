@@ -6,7 +6,7 @@ export function Register() {
 
     let valid = true;
 
-    // Store values of each input box in cache
+    // Store values of each input box in memory for quicker access
     let uname = <string>$("#regUname").val();
     let email = <string>$("#regEmail").val();
     let confEmail = <string>$("#regConfEmail").val();
@@ -43,7 +43,7 @@ export function Register() {
     }
 
     let emailRegex =
-      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     if (!email.match(emailRegex)) {
       alert("Email is not valid");

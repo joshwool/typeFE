@@ -1,4 +1,5 @@
 import * as ws from "../websocket/websocket";
+import * as setup from "../typing/setup";
 
 export function IndexOnload() {
   if (localStorage.getItem("sessionId") !== null) {
@@ -11,6 +12,8 @@ export function IndexOnload() {
         })
       );
     };
+  } else {
+    setup.GenTest();
   }
 }
 

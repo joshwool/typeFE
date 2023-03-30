@@ -5,6 +5,10 @@ import * as display from "./display";
 
 export let wordList: Array<string> = [];
 
+export function clearWordList() {
+  wordList = [];
+}
+
 function genWord() {
   wordList.push(words.words[Math.floor(Math.random() * words.words.length)]);
   let word = $("<div class='word'></div>");
@@ -49,13 +53,13 @@ export function genPractice(words: Array<string>) {
     $(".line")
       .last()
       .find(".word")
-      .each(() => {
+      .each(function () {
         lineWidth += $(this).outerWidth();
       });
     let lineDone = false;
     while (!lineDone) {
       let word = $("<div class='word'></div>");
-      wordList.push(words[count]);
+      wordList.push(words[Math.floor(Math.random() * words.length)]);
       for (let i = 0; i < wordList[wordList.length - 1].length; i++) {
         let char = $(
           "<span class='char'>" +
@@ -77,6 +81,9 @@ export function genPractice(words: Array<string>) {
         wordsDone = true;
       }
     }
+  }
+  if (input.wordInd === 0) {
+    $(".word").first().addClass("wordCur");
   }
   display.updateLines();
 }

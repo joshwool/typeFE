@@ -1,10 +1,10 @@
 import * as ws from "../websocket/websocket";
 import * as gen from "../words/generate";
-import * as change from "./change";
+import * as change from "../config/change";
 import * as config from "../config/config";
-import * as setup from "./setup";
+import * as setup from "../typing/setup";
 
-export function Response() {
+export function Index() {
   ws.websocket.onmessage = (event) => {
     let response = JSON.parse(event.data);
     if (response.result === 1) {
@@ -15,15 +15,18 @@ export function Response() {
         config.typeConfig.number = response.config.number;
 
         setup.GenTest();
-      } else if (response["operation"] === 4) {
+      } else if (response["operation"] === 6) {
         gen.genPractice(response["words"]);
       }
     } else {
       for (let i = 0; i < response.errmsgs.length; i++) {
+        // Alert users to any errors that have occurred
         alert(response.errmsgs[i]);
       }
-      change.Mode("test", config.typeConfig.type, config.typeConfig.number); // If creating the practice set errors then revert to test mode and update config to prevent confusion
-
+      if (response.operation === 6) {
+        config.typeConfig.type = "test";
+        change.Config(); // If creating the practice set errors then revert to test mode and update config to prevent confusion
+      }
       setup.GenTest();
     }
   };
