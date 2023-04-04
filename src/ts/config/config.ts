@@ -5,9 +5,9 @@ export const typeConfig: TypeConfig = {
   type: "time",
   number: 15,
 };
-export let typeData: TestData = {
-  wpm: 0,
-  acc: 0,
+export let typeData: TypeData = {
+  wpm: 0, // words per minute
+  acc: 0, // accuracy
   totalPresses: 0,
   errors: 0,
   keys: [

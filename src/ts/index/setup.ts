@@ -1,5 +1,5 @@
 import * as config from "../config/config";
-import * as gen from "../words/generate";
+import * as gen from "./generate";
 import * as ws from "../websocket/websocket";
 
 export function GenTest() {
@@ -16,7 +16,6 @@ export function GenTest() {
       let number = 50; // Default words generated is 50 for time tests
       if (config.typeConfig.type === "words") {
         number = Number(config.typeConfig.number);
-        console.log(typeof number);
       }
       if (ws.websocket.readyState === 1) {
         ws.websocket.send(

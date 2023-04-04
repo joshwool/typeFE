@@ -10,6 +10,7 @@ export function Login() {
     let pword = <string>$("#logPword").val();
 
     $(".logInput").each(function () {
+      // Checks for missing fields
       if ($(this).val() === undefined) {
         alert("Missing fields");
         return false;

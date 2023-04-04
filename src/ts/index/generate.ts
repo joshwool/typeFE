@@ -1,6 +1,6 @@
 // @ts-ignore
 import words from "../../../static/json/words_1k.json";
-import * as input from "../input/input";
+import * as input from "./input";
 import * as display from "./display";
 
 export let wordList: Array<string> = [];

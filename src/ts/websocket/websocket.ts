@@ -1,1 +1,1 @@
-export const websocket = new WebSocket("ws://localhost:80");
+export const websocket = new WebSocket("ws://localhost:80"); // WebSocket to server

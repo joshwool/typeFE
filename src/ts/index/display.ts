@@ -1,6 +1,5 @@
-import * as input from "../input/input";
+import * as input from "./input";
 import * as gen from "./generate";
-import * as caret from "../caret/display";
 import * as config from "../config/config";
 
 export function wordsFocus(): void {
@@ -93,7 +92,7 @@ export function resizeLines(): void {
     } else if (lineWidth < $("#wordDis").outerWidth()) {
       console.log("expand");
       let underflow = lineWidth - $("#wordDis").outerWidth(); // Free space potentially available for words
-      let pull = i + 1; // Index of line which words will be pulled from
+      let pull = i + 1; // Response of line which words will be pulled from
       console.log("underflow: " + underflow);
       while (underflow < 0) {
         let pullElement = undefined;

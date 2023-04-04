@@ -1,0 +1,35 @@
+@import "src/styles/main";
+
+#boardlabel {
+  margin: 1rem;
+  color: #48bf91;
+  font-size: 2rem;
+}
+
+#leaderboard {
+  height: 65vh;
+  border: solid #48bf91;
+  border-radius: 0.5rem;
+  width: 40%;
+  padding: 0.5rem;
+  overflow: scroll;
+}
+
+#header {
+  padding: 0.5rem;
+  width: 40%;
+  border: solid #48bf91;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #48bf91;
+  color: #0e261d;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}

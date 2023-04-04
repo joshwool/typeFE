@@ -1,1 +1,16 @@
 @import "src/styles/main";
+
+#name {
+  font-size: 2rem;
+  color: #48bf91;
+}
+
+#stats {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-content: center;
+  width: 50%;
+  font-size: 1.5rem;
+  color: #48bf91;
+}

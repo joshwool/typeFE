@@ -1,11 +1,11 @@
 import * as ws from "../websocket/websocket";
 
-export function Signin() {
+export function Response() {
   ws.websocket.onmessage = (event) => {
     let response = JSON.parse(event.data);
     if (response.result === 1) {
       localStorage.setItem("sessionId", response.sessionId);
-      window.location.replace("account.html");
+      window.location.replace("account.html"); // Go to account.html if already logged in
     } else {
       for (let i = 0; i < response.errmsgs.length; i++) {
         alert(response.errmsgs[i]);

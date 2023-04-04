@@ -75,3 +75,14 @@ body {
   border-style: solid;
   filter: blur(0);
 }
+
+#keyData {
+  column-count: 2;
+  margin: 0.2rem;
+}
+
+.keyinfo {
+  font-size: 1rem;
+  color: #48bf91;
+  margin: 0.2rem;
+}

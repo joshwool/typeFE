@@ -1,29 +1,37 @@
-import * as worddis from "../words/display";
-import * as gen from "../words/generate";
-import * as setup from "../typing/setup";
+/// <reference path="../config/config.d.ts" />
+
+import * as worddis from "./display";
+import * as gen from "./generate";
+import * as setup from "./setup";
 import * as config from "../config/config";
-import * as popups from "../popups/popups";
+import * as popups from "./popups";
 import * as ws from "../websocket/websocket";
+import * as change from "../config/change";
 
 export let wordInd: number = 0;
-let inpHistory: Array<any> = [];
+export let lastTestData: TypeData;
 
-let time = 0;
-let wordCount = 0;
-let counts = true;
+let inpHistory: Array<any> = [];
+let time: number = 0;
+let wordCount: number = 0;
+let counts: boolean = true;
+
+let currentTime: number = null;
 let lastTime: number = null;
+let lastIntervalTime: number = null;
+
 let interval: NodeJS.Timeout;
 
 export function KeyDown(): void {
   $("#wordInp").on("keydown", (event) => {
-    let currentTime = Date.now();
+    currentTime = Date.now();
     let inpVal = <any>$("#wordInp").val();
     if (event.which === 8) {
       // Checks if the key pressed is a backspace
       if (inpVal === "") {
         // Checks if at start of word
         if (wordInd === 0) {
-          event.preventDefault();
+          event.preventDefault(); // If backspace is pressed as first character then ignore it
         } else {
           wordCount--;
           if (event.metaKey === true || event.ctrlKey === true) {
@@ -51,7 +59,7 @@ export function KeyDown(): void {
           inpHistory.pop(); // Removes last word in input history
           event.preventDefault(); // Prevents backspace event from going through as it has already been dealt with
         } else {
-          worddis.charBack();
+          worddis.charBack(); // Calls charBack function to deal with normal backspace press
         }
       }
     } else if (event.which === 32) {
@@ -86,12 +94,14 @@ export function KeyDown(): void {
         let keyCode = event.which - 65;
         let timeDiff = currentTime - lastTime;
         config.typeData.keys[keyCode][0] = Math.round(
+          // Updates keys avg time taken to press
           (config.typeData.keys[keyCode][0] * config.typeData.keys[keyCode][1] +
             timeDiff) /
             (config.typeData.keys[keyCode][1] + 1)
         );
       }
       if (wordInd === 0 && inpVal === "") {
+        // Checks if first character in test, if so starts test
         counts = true;
         if (config.typeConfig.type === "time") {
           time = config.typeConfig.number;
@@ -99,17 +109,23 @@ export function KeyDown(): void {
           interval = setTimeout(TimeInterval, 1000);
         } else if (config.typeConfig.type === "words") {
           time = 0;
-          wordCount = 0;
           $("#count").text("0/" + config.typeConfig.number);
           interval = setTimeout(WordsInterval, 1000);
         }
       }
-
       // Character Check
       worddis.charForward(event.key, event.which - 65); // Calls charForward function to deal with key press
+      if (
+        wordInd + 1 == config.typeConfig.number &&
+        inpVal.length + 1 == gen.wordList[wordInd].length &&
+        config.typeConfig.type === "words"
+      ) {
+        Results();
+      }
     }
     lastTime = currentTime;
 
+    // Updates word count
     if (config.typeConfig.type === "words") {
       $("#count").text(wordCount + "/" + config.typeConfig.number);
     }
@@ -117,6 +133,7 @@ export function KeyDown(): void {
 }
 
 export function Reset() {
+  // Resets test
   time = 0;
   wordInd = 0;
   inpHistory = [];
@@ -126,8 +143,52 @@ export function Reset() {
   $("#WPM").text("WPM");
   $("#ACC").text("ACC");
 
-  if (localStorage.getItem("sessionId") !== null && counts) {
-    if (ws.websocket.readyState === 1) {
+  change.ResetTypeData();
+
+  setup.GenTest();
+}
+
+export function Results() {
+  // Gets results
+  if (
+    localStorage.getItem("sessionId") !== null &&
+    config.typeConfig.mode !== "practice"
+  ) {
+    // Updates wpm and accuracy
+    if (config.typeConfig.type === "words") {
+      config.typeData.wpm =
+        ((config.typeData.totalPresses - config.typeData.errors) /
+          5 /
+          (config.typeConfig.number -
+            (time + currentTime - lastIntervalTime))) *
+        60;
+    } else {
+      config.typeData.wpm =
+        ((config.typeData.totalPresses - config.typeData.errors) /
+          5 /
+          (config.typeConfig.number - time)) *
+        60;
+    }
+
+    config.typeData.acc =
+      ((config.typeData.totalPresses - config.typeData.errors) /
+        config.typeData.totalPresses) *
+      100;
+
+    if (ws.websocket.readyState == 1) {
+      ws.websocket.send(
+        JSON.stringify({
+          operation: 9, // Test upload
+          sessionId: localStorage.getItem("sessionId"),
+          type: config.typeConfig.type,
+          number: String(config.typeConfig.number),
+          test_data: {
+            wpm: config.typeData.wpm,
+            accuracy: config.typeData.acc,
+          },
+        })
+      );
+
       ws.websocket.send(
         JSON.stringify({
           operation: 5, // Practice Config Update
@@ -135,23 +196,41 @@ export function Reset() {
           addConfig: config.typeData.keys,
         })
       );
-    } else {
-      alert("Server down, please try again later");
     }
   }
 
-  setup.GenTest();
-}
+  lastTestData = JSON.parse(JSON.stringify(config.typeData));
 
-export function Results() {
+  // Display results
   popups.Results();
+
+  if (ws.websocket.readyState === 1) {
+    ws.websocket.send(
+      JSON.stringify({
+        operation: 7, // Request key scores
+        keyData: config.typeData.keys,
+      })
+    );
+  }
+
   Reset();
 }
 
 function TimeInterval() {
   time--;
 
-  WPMACCCalc();
+  let wpm =
+    ((config.typeData.totalPresses - config.typeData.errors) /
+      5 /
+      (config.typeConfig.number - time)) *
+    60;
+  let accuracy =
+    ((config.typeData.totalPresses - config.typeData.errors) /
+      config.typeData.totalPresses) *
+    100;
+
+  $("#WPM").text(Math.round(wpm));
+  $("#ACC").text(Math.round(accuracy));
 
   $("#count").text(time);
 
@@ -175,7 +254,17 @@ function TimeInterval() {
 function WordsInterval() {
   time++;
 
-  WPMACCCalc();
+  let wpm =
+    ((config.typeData.totalPresses - config.typeData.errors) / 5 / time) * 60;
+  let accuracy =
+    ((config.typeData.totalPresses - config.typeData.errors) /
+      config.typeData.totalPresses) *
+    100;
+
+  $("#WPM").text(Math.round(wpm));
+  $("#ACC").text(Math.round(accuracy));
+
+  lastIntervalTime = Date.now();
 
   if (Date.now() - lastTime > 3000) {
     // Checks if last key press was > 3 seconds ago
@@ -187,19 +276,4 @@ function WordsInterval() {
 
 function StopInterval() {
   clearTimeout(interval);
-}
-
-function WPMACCCalc() {
-  let wpm =
-    ((config.typeData.totalPresses - config.typeData.errors) /
-      5 /
-      (config.typeConfig.number - time)) *
-    60;
-  let accuracy =
-    ((config.typeData.totalPresses - config.typeData.errors) /
-      config.typeData.totalPresses) *
-    100;
-
-  $("#WPM").text(Math.round(wpm));
-  $("#ACC").text(Math.round(accuracy));
 }

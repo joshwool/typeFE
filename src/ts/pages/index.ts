@@ -1,14 +1,14 @@
 import "jquery";
-import * as input from "../input/input";
-import * as display from "../words/display";
-import * as popups from "../popups/popups";
+import * as input from "../index/input";
+import * as display from "../index/display";
+import * as popups from "../index/popups";
 import "../../styles/pages/index.scss";
 import * as onload from "../onload/onload";
-import * as response from "../response";
+import * as response from "../index/response";
 
 $(() => {
   onload.IndexOnload();
-  response.Index();
+  response.Response();
 
   $("#wordInp").val("");
 
