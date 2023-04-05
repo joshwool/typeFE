@@ -15,7 +15,7 @@ export function IndexOnload() {
     };
 
     $("#account").attr("href", "account.html");
-    $("#account").text("Response");
+    $("#account").text("Account");
   } else {
     setup.GenTest();
   }

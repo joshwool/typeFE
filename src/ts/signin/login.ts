@@ -11,7 +11,7 @@ export function Login() {
 
     $(".logInput").each(function () {
       // Checks for missing fields
-      if ($(this).val() === undefined) {
+      if ($(this).val() === "") {
         alert("Missing fields");
         return false;
       }

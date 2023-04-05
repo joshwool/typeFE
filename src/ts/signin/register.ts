@@ -15,7 +15,8 @@ export function Register() {
 
     //Checks if there are any missing fields
     $(".regInput").each(function () {
-      if ($(this).val() === undefined) {
+      console.log($(this).val());
+      if ($(this).val() === "") {
         alert("Missing fields");
         return false;
       }

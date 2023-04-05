@@ -19,6 +19,11 @@ export function Response() {
           );
         }
       }
+    } else if (response.result === 0) {
+      for (let i = 0; i < response.errmsgs.length; i++) {
+        // Alert users to any errors that have occurred
+        alert(response.errmsgs[i]);
+      }
     }
   };
 }

@@ -57,6 +57,8 @@ export function Response() {
             $("#keyData").append(keyInfo);
           }
         }
+      } else if (response.operation === 9) {
+        console.log("Test");
       }
     } else {
       for (let i = 0; i < response.errmsgs.length; i++) {
